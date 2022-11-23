@@ -51,23 +51,6 @@ public class AppDbContext : DbContext
 
         //Patients
         builder.Entity<Patient>().ToTable("Users").HasBaseType<User>();
-        builder.Entity<Patient>().HasData(
-               new Patient
-               {
-                   Id = 1,
-                   Dni = "74747474",
-                   Password = "contra123456",
-                   FirstName = "Juan",
-                   LastName = "Perez",
-                   Email = "juanperez@gmail.com",
-                   cell1 = "968745123",
-                   Birthday = "22/02/1985",
-                   Genre = "male",
-                   photo = " https://images.pexels.com/photos/3831612/pexels-photo-3831612.jpeg?auto=compress&cs=tinysrgb&w=600"
-               });
-
-   
-
 
         //Doctors
         builder.Entity<Doctor>().ToTable("Users").HasBaseType<User>(); ;
@@ -78,27 +61,7 @@ public class AppDbContext : DbContext
         builder.Entity<Doctor>().Property(p => p.Age).IsRequired();
         builder.Entity<Doctor>().Property(p => p.Cost).IsRequired();
 
-        builder.Entity<Doctor>().HasData(
-               new Doctor
-               {
-                   Id = 2,
-                   Dni = "43434343",
-                   Password = "contra987",
-                   FirstName = "Pedro",
-                   LastName = "Camones",
-                   Email = "pedrocamones@gmail.com",
-                   cell1 = "999888777",
-                   Birthday = "22/02/1972",
-                   Genre = "male",
-                   photo = "https://tse3.mm.bing.net/th?id=OIP.m5GEWxP3vt6Z24SMIJ5z5AHaKX&pid=Api&P=0",
-                   Area = "Dermatology",
-                   Description = "A responsible doctor who always tries to help those who need it.",
-                   Patients = 345,
-                   Years = 15,
-                   Age = 45,
-                   Cost = 70.23
-               });
-   
+       
 
         //News
         builder.Entity<New>().ToTable("News");
@@ -110,16 +73,7 @@ public class AppDbContext : DbContext
         builder.Entity<New>().Property(p => p.Description).IsRequired();
         builder.Entity<New>().Property(p => p.Views).IsRequired();
 
-        builder.Entity<New>().HasData(
-               new New
-               {
-                   Id = 1,
-                   Image = "https://image.ondacero.es/clipping/cmsimages02/2022/10/17/BF222101-B7D9-4A98-9C28-9F4B1DBF53F3/gente-hace-cola-hacerse-prueba-pcr-coronavirus-china_97.jpg?crop=1920,1080,x0,y53&width=1600&height=900&optimize=high&format=webply",
-                   Title = "China confines almost a million people in the east of the country and increases restrictions",
-                   Description = "Almost a million residents of the Zhongyuan district, one of the most populous in the city of Zhengzhou, have been ordered to stay at home from Monday.",
-                   Info = "The city of Zhengzhou, in eastern China, joins the increase in restrictions that China is imposing in the face of coronavirus outbreaks. Nearly a million residents of the Zhongyuan district have been ordered to stay home from Monday, except for times when they have to undergo coronavirus tests, according to local media.",
-                   Views = 12742
-               });
+      
 
 
 
@@ -138,16 +92,6 @@ public class AppDbContext : DbContext
                .HasForeignKey(id => id.DoctorId);
 
 
-        builder.Entity<Date>().HasData
-         (new Date
-         {
-
-               Id = 1,
-               IdPatient  = 1,
-               DoctorId = 2,
-               CDate = "2022-10-14"
-         }
-         );
 
         //Reviews
         builder.Entity<Review>().ToTable("Reviews");
@@ -166,19 +110,7 @@ public class AppDbContext : DbContext
                .WithMany(q => q.CReviews)
                .HasForeignKey(id => id.IdDoctor);
 
-        builder.Entity<Review>().HasData
-         (new Review
-         {
-
-             Id = 1,
-             ProfilePhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Emblem-person-blue.svg/2048px-Emblem-person-blue.svg.png",
-             CustomerReview = "Very good specialist. Help me with every question I had. I would definetely recommen it!!!",
-             CustomerName = "Juan Perez",
-             CustomerScore = 4,
-             IdPatient = 1,
-             IdDoctor = 2         }
-         );
-
+        
 
 
         //HourAvailable
@@ -193,15 +125,7 @@ public class AppDbContext : DbContext
                .WithMany(q => q.CHoursAvailable)
                .HasForeignKey(id => id.DoctorId);
 
-        builder.Entity<HourAvailable>().HasData
-         (new HourAvailable
-         {
-             Id = 1,
-             Hours = "3:00 - 4:00",
-             Booked = false,
-             DoctorId = 2
-         }
-         );
+       
 
         //MedicalInformation
         builder.Entity<MedicalInformation>().ToTable("MedicalHistories");
@@ -241,28 +165,7 @@ public class AppDbContext : DbContext
                .HasOne(p => p.CPatient)
                .WithMany(q => q.CPrescription)
                .HasForeignKey(id => id.IdPatient);
-
-
-        builder.Entity<Prescription>().HasData
-         (new Prescription
-         {
-
-             Id = 1,
-             IdPatient = 1,
-             DateIssue = "10/05/2018",
-             DateExpiration = "09/06/2018",
-             MedicalSpeciality = "Dermatology",
-             RecipCode = "123456789",
-             Condition = "Valid",
-             Rest = ". Sleep a lot Rest your voice too.",
-             Drink = ". Liquids keep the throat hydrated and prevent dehydration. Avoid caffeine and alcohol, which can dehydrate you.",
-             Food = ". Hot beverages, such as broth, non-caffeinated tea, or warm water with honey, and cold snacks, such as popsicle sticks, can soothe a sore throat. You should never give honey to babies younger than 1 month old.",
-             NumberDose = 3,
-             Medicines = "Cetirizina,Paracetamol,Migralivia",
-             Meals = "3 times per week,2 times per nigth",
-             Hours = "03:00,04:00"
-         }
-         );
+        
 
         // Apply Snake Case Naming Convention
 

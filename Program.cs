@@ -24,6 +24,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -150,4 +152,3 @@ if (app.Environment.IsDevelopment())
     app.Run();
 }
 
-public partial class Program {}
